@@ -164,9 +164,29 @@ class PackProcessor {
             return methods;
         };
 
+        let getPackersForClass = (packerClass, packerMethod) => {
+            let methods = [];
+            // If trimming is enabled, try all available methods for the packer to find optimal arrangement
+            // This is important because trimming changes sprite dimensions significantly
+            if (options.allowTrim) {
+                for (let method in packerClass.methods) {
+                    // Always try without rotation
+                    methods.push({ packerClass, packerMethod: packerClass.methods[method], allowRotation: false });
+                    // Also try with rotation if allowed, for even better optimization
+                    if (options.allowRotation) {
+                        methods.push({ packerClass, packerMethod: packerClass.methods[method], allowRotation: true });
+                    }
+                }
+            } else {
+                // When trimming is not enabled, use the selected method as before
+                methods.push({ packerClass, packerMethod, allowRotation: options.allowRotation });
+            }
+            return methods;
+        };
+
         let packerClass = options.packer || MaxRectsBinPack;
         let packerMethod = options.packerMethod || MaxRectsBinPack.methods.BestShortSideFit;
-        let packerCombos = (packerClass === OptimalPacker) ? getAllPackers() : [{ packerClass, packerMethod, allowRotation: options.allowRotation }];
+        let packerCombos = (packerClass === OptimalPacker) ? getAllPackers() : getPackersForClass(packerClass, packerMethod);
 
         let optimalRes;
         let optimalSheets = Infinity;

@@ -41,7 +41,11 @@ function loadLocalization() {
 
 function renderLayout() {
     Controller.updateLocale();
-    layout = ReactDOM.render(React.createElement(MainLayout), document.getElementById("root"));
+    layout = ReactDOM.render(React.createElement(MainLayout), document.getElementById("root"), () => {
+        if (PLATFORM === "electron") {
+            Controller.onAppReady();
+        }
+    });
 }
 
 function injectCss(path) {

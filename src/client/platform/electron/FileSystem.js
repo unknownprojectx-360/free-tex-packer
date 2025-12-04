@@ -1,6 +1,6 @@
 const fs = require('fs');
 const chokidar = require('chokidar');
-const { dialog } = require('electron').remote;
+const { dialog } = require('@electron/remote');
 
 import Controller from 'platform/Controller';
 import I18 from '../../utils/I18';
@@ -21,7 +21,7 @@ class FileSystem {
     }
 
     static selectFolder() {
-        let dir = dialog.showOpenDialog({
+        let dir = dialog.showOpenDialogSync({
             properties: ['openDirectory']
         });
         return dir;
@@ -45,7 +45,7 @@ class FileSystem {
     }
 
     static addImages(cb) {
-        let list = dialog.showOpenDialog({
+        let list = dialog.showOpenDialogSync({
             filters: [{ name: I18.f("IMAGES"), extensions: IMAGES_EXT }],
             properties: ['openFile', 'multiSelections']
         });
@@ -71,7 +71,7 @@ class FileSystem {
     }
 
     static addFolder(cb) {
-        let dir = dialog.showOpenDialog({
+        let dir = dialog.showOpenDialogSync({
             properties: ['openDirectory']
         });
 
@@ -166,7 +166,7 @@ class FileSystem {
         };
 
         if (!path) {
-            path = dialog.showSaveDialog(options);
+            path = dialog.showSaveDialogSync(options);
         }
 
         if (path) {
@@ -191,7 +191,7 @@ class FileSystem {
             path = FileSystem.fixPath(pathToLoad);
         }
         else {
-            path = dialog.showOpenDialog({
+            path = dialog.showOpenDialogSync({
                 filters: [{ name: "Free texture packer", extensions: ['ftpp'] }],
                 properties: ['openFile']
             });
