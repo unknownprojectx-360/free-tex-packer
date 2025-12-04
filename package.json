@@ -1,7 +1,7 @@
 {
   "name": "free-tex-packer",
   "displayName": "Free texture packer",
-  "version": "0.6.7",
+  "version": "0.7.0",
   "description": "Free online texture packer",
   "url": "http://free-tex-packer.com",
   "download": "http://free-tex-packer.com/download",
@@ -90,8 +90,8 @@
     "babel-preset-stage-0": "^6.22.0",
     "babel-runtime": "^6.23.0",
     "chokidar": "^2.0.4",
-    "copy-webpack-plugin": "^4.6.0",
-    "electron": "^4.0.4",
+    "copy-webpack-plugin": "^5.1.2",
+    "electron": "^28.0.0",
     "eventemitter3": "^3.0.1",
     "file-saver": "^2.0.0",
     "glob": "^7.1.1",
@@ -107,5 +107,8 @@
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.1.14",
     "xml2js": "^0.4.19"
+  },
+  "dependencies": {
+    "@electron/remote": "^2.1.3"
   }
 }

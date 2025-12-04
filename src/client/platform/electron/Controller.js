@@ -119,6 +119,10 @@ class Controller {
             ipcRenderer.send('quit');
         });
     }
+
+    static onAppReady() {
+        ipcRenderer.send('app-ready');
+    }
 }
 
 export default Controller;
